@@ -1,0 +1,11 @@
+<nav class="navbar navbar-dark bg-dark">
+  <h5><%= link_to "Employees", employees_path %></h5>
+  <div>
+    <% if user_signed_in? %>
+      <h5><%= link_to "Logout", destroy_user_session_path, method: :delete %></h5>
+    <% else %>
+      <h5><%= link_to "SignIn", user_session_path %></h5>
+      <h5><%= link_to "SignUp", new_user_registration_path %></h5>
+    <% end %>
+  </div>
+</nav>

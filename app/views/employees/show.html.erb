@@ -1,0 +1,51 @@
+<div class="container mx-auto my-8 px-4">
+  <div class="row justify-content-between">
+    <div class="col-4">
+      <%= link_to "← Back to Contacts", employees_path, class: "navigation__link" %>
+    </div>
+    <div class="col-1">
+      <%= link_to 'Edit', edit_employee_path(@employee), class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <div class="bg-white rounded shadow p-8">
+    <div class="flex flex-wrap flex-col md:flex-row">
+
+      <div class="col mt-2">
+        <label class="text-black-50">First Name:</label>
+        <%= @employee.first_name %>
+      </div>
+
+      <div class="col mt-2">
+        <label class="text-black-50">Last Name:</label>
+        <%= @employee.last_name %>
+      </div>
+
+      <div class="col mt-2">
+        <label class="text-black-50">Age:</label>
+        <%= @employee.age %>
+      </div>
+
+      <div class="col mt-2">
+        <label class="text-black-50">Designation:</label>
+        <%= @employee.designation %>
+      </div>
+
+      <div class="col mt-2">
+        <label class="text-black-50">Gender:</label>
+        <%= @employee.gender %>
+      </div>
+
+      <div class="col mt-2">
+        <label class="text-black-50">Created At:</label>
+        <%= @employee.created_at %>
+      </div>
+
+      <div class="col mt-2">
+        <label class="text-black-50">Updated At:</label>
+        <%= @employee.updated_at %>
+      </div>
+
+    </div>
+  </div>
+</div>

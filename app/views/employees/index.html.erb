@@ -1,0 +1,88 @@
+<div class="mx-auto my-8 px-4">
+  <div class="flex mb-2">
+    <h1><%= display_resources_title('Employees') %></h1>
+  </div>
+  <% if @employees.present? %>
+    <%= search_form_for [@query] do |f| %>
+      <div class="form-row align-items-center">
+        <div class="col-auto">
+          <div class="input-group mb-2">
+            <%= f.text_field :first_name_or_last_name_or_designation_cont, class: "form-control", placeholder: "Name" %>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="input-group mb-2">
+            <label class="ml-3 mr-3">From</label>
+            <%= f.text_field :created_at_gteq, class: "form-control lg:flex-1", placeholder: "Select from date", autocomplete: 'off', value: params["q"].present? ? params["q"]["created_at_gteq"] : nil %>
+          </div>
+        </div>
+        <div class="col-auto">
+          <div class="input-group mb-2">
+            <label class="ml-3 mr-3">To</label>
+            <%= f.text_field :created_at_lteq, class: "form-control lg:flex-1", placeholder: "Select to date", autocomplete: 'off', value: params["q"].present? ? params["q"]["created_at_lteq"] : nil %>
+          </div>
+        </div>
+        <div class="m-lg-4 text-center">
+          <div class="input-group mb-2">
+            <%= f.submit "Search", class: "btn btn-primary" %>
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <div class="input-group mb-2">
+            <%= link_to 'New Employee', new_employee_path, class: "btn bg-primary-700 btn-primary" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="bg-white rounded shadow table-responsive">
+      <table class="table table-fixed break-words">
+        <thead>
+        <tr>
+          <th class="w-10 py-6 px-4 text-left">S.NO</th>
+          <th class="w-10 py-6 px-4 text-left"><%= sort_link(@query, :first_name, [:first_name, :last_name], "Name") %></th>
+          <th class="w-10 py-6 px-4 text-left"><%= sort_link(@query, :age) %></th>
+          <th class="w-10 py-6 px-4 text-left"><%= sort_link(@query, :gender) %></th>
+          <th class="w-10 py-6 px-4 text-left"><%= sort_link(@query, :designation) %></th>
+          <th class="w-10 py-6 px-4 text-left"><%= sort_link(@query, :created_at) %></th>
+          <th class="w-10 py-6 px-4 text-left"><%= sort_link(@query, :updated_at) %></th>
+          <th class="w-10 py-6 px-4 text-left">Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <% from = @pagy.from %>
+        <% @employees.each_with_index do |employee, index| %>
+          <tr class="group border-t border-gray-400 hover:bg-gray-100">
+            <td class="p-4 py-5 text-left text-gray-700"><%= index + from %></td>
+            <td class="p-4 py-5 text-left text-gray-700"><%= employee.name %></td>
+            <td class="p-4 py-5 text-left text-gray-700"><%= employee.age %></td>
+            <td class="p-4 py-5 text-left text-gray-700"><%= employee.gender %></td>
+            <td class="p-4 py-5 text-left text-gray-700"><%= employee.designation %></td>
+            <td class="p-4 py-5 text-left text-gray-700"><%= employee.created_at %></td>
+            <td class="p-4 py-5 text-left text-gray-700"><%= employee.updated_at %></td>
+            <td class="p-4 py-5 uppercase text-left text-gray-700 px-0">
+              <%= link_to "View", employee %> |
+              <%= link_to "Edit", edit_employee_path(employee) %> |
+              <%= link_to 'Delete', employee, method: :delete, data: {remote: true, confirm: "Are you sure?"} %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <% if @pagy.pages > 1 %>
+      <div class="text-right">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="bg-white rounded shadow flex flex-col items-center justify-between p-8 lg:flex-row">
+      <%= image_tag "empty.jpeg", class: "w-2/5 mb-4 m-auto" %>
+      <div class="flex-1 text-center">
+        <%= link_to 'New Contact', new_employee_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
