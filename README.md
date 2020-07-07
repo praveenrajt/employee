@@ -9,7 +9,9 @@ Bunlder version  **bundler version 2.1.2**
 **Configuration**
 
 `git clone https://github.com/praveenrajt/employee.git`
+
 `cd employee`
+
 `bundle`
 
 **Database creation**
